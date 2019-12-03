@@ -3,9 +3,24 @@
 <head>
 	<meta charset="utf-8">
 	<script>
-		// TODO: create a handler
+		actions = {
+			"google": "https://www.google.com/search/",
+			"duckDuckGo": "https://duckduckgo.com/",
+			"bing": "https://www.bing.com/search/",
+			"ask": "https://www.ask.com/web/"
+		}
     window.addEventListener("load", function(){
-        // TODO: register the handler
+		form = document.getElementById("searchForm");
+		form.addEventListener("submit", function() {
+			checkedSearch = document.querySelector("input[type=radio]:checked");
+			searchboxes = document.getElementsByName("search");
+			search = searchboxes[0].value;
+			actionValue = checkedSearch.value;
+			form.method = "GET";
+			form.action = `${actions[actionValue]}?q=${search}`;
+			console.log(actions[actionValue]);
+			this.submit();
+		});
     });
 	</script>
 </head>
