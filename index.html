@@ -11,11 +11,16 @@
 		}
     window.addEventListener("load", function(){
 		form = document.getElementById("searchForm");
-		form.addEventListener("submit", function() {
+		form.addEventListener("submit", function(event) {
+			event.preventDefault();
 			checkedSearch = document.querySelector("input[type=radio]:checked");
-			searchboxes = document.getElementsByName("search");
+			searchboxes = document.getElementsByName("q");
 			search = searchboxes[0].value;
 			actionValue = checkedSearch.value;
+			inputs = document.getElementsByName('input');
+			for (i=0; i<inputs.length;i++) {
+				inputs[i].removeAttribute('name');
+			}
 			form.method = "GET";
 			form.action = `${actions[actionValue]}?q=${search}`;
 			console.log(actions[actionValue]);
@@ -28,11 +33,11 @@
 <body>
 
 	<form id="searchForm">
-		<input name="search" value="" />
-		<label><input type=radio name="searchEngine" value="google" checked="checked" />Google</label>
-		<label><input type=radio name="searchEngine" value="duckDuckGo"  />DuckDuckGo</label>
-		<label><input type=radio name="searchEngine"  value="bing" />Bing</label>
-		<label><input type=radio name="searchEngine"  value="ask" />Ask</label>
+		<input name="q" value="" />
+		<label><input type=radio name="engine" value="google" checked="checked" />Google</label>
+		<label><input type=radio name="engine" value="duckDuckGo"  />DuckDuckGo</label>
+		<label><input type=radio name="engine"  value="bing" />Bing</label>
+		<label><input type=radio name="engine"  value="ask" />Ask</label>
 		<button>Search</button>
 		<!--
 			action urls
